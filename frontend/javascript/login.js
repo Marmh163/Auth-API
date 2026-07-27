@@ -10,6 +10,7 @@ button.addEventListener('click' , async (event) => {
             email : email.value,
             password : password.value
         }),
+        credentials : 'include',
         headers : {
             'Content-Type' : 'application/json'
         }

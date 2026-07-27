@@ -56,10 +56,18 @@ const login = async ( req , res) => {
 
         //generate token
         const token = jwt.sign({ email : user.email , role : user.role} , process.env.JWT_SECRET , {
-            expiresIn : '30min'
+            expiresIn : '2h'
         })
 
-        res.status(200).json([{message : 'با موفقیت لاگین شدی', token: token }] )
+        //set cookie
+        res.cookie('token' , token , {
+            httpOnly : true,
+            secure : true,
+            sameSite : 'none',
+            maxAge : 2 * 60 * 60 * 1000 //2h
+        })
+
+        res.status(200).json([{message : 'با موفقیت لاگین شدی' }] )
 
     }catch(err){
         next(err)
