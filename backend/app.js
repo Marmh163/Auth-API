@@ -3,12 +3,14 @@ const cors = require('cors')
 
 const errorHandler = require('./middlewares/errorHandler')
 const express = require('express')
+const path = require('path')
 const connectDB = require('./utils/connectDB')
 const app = express()
 
 const port = process.env.PORT
-app.use(cors({origin : 'http://127.0.0.1:5500' , credentials: true }))
+app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(__dirname , '../frontend')))
 
 //connect to db
 connectDB()
@@ -19,6 +21,9 @@ const testRouter = require('./routes/testRoutes')
 
 app.use('/auth' , authRouter)
 app.use('/test' , testRouter)
+app.get('/login' , (req , res) =>{
+    res.sendFile(path.join(__dirname , '../frontend/login.html'))
+})
 
 app.use(errorHandler)
 
