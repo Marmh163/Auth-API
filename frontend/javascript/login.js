@@ -28,5 +28,7 @@ button.addEventListener('click' , async (event) => {
     }
     else if(res.status == 200) {
         alert(data.map(error => error.message + '\n'))
+        window.location.href = '/profile'
+
     }
 })

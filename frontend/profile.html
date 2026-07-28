@@ -8,7 +8,14 @@
     </head>
     <body>
         <h1 class="profile">Profile Page</h1>
+        <div class="logoutBtn">
+            <button id="logout">logout</button>
+        </div>
 
-        <script src="./javascript/profile.js"></script>
+        <script>
+            document.getElementById('logout').onclick = function(){
+                window.location.href='/auth/logout'
+            }
+        </script>
     </body>
 </html>
