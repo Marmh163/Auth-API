@@ -24,6 +24,15 @@ app.use('/test' , testRouter)
 app.get('/login' , (req , res) =>{
     res.sendFile(path.join(__dirname , '../frontend/login.html'))
 })
+app.get('/register' , (req , res) =>{
+    res.sendFile(path.join(__dirname , '../frontend/register.html'))
+})
+app.get('/profile' , (req , res) =>{
+    if(!req.headers.cookie){
+        return res.redirect('/login')
+    }
+    res.sendFile(path.join(__dirname , '../frontend/profile.html'))
+})
 
 app.use(errorHandler)
 
