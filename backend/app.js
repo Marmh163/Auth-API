@@ -21,6 +21,7 @@ connectDB()
 //router
 const authRouter = require('./routes/authRoutes')
 const testRouter = require('./routes/testRoutes')
+const { isAuthenticated } = require('./middlewares/auth')
 
 app.use('/auth' , authRouter)
 app.use('/test' , testRouter)
@@ -30,16 +31,7 @@ app.get('/login' , (req , res) =>{
 app.get('/register' , (req , res) =>{
     res.sendFile(path.join(__dirname , '../frontend/register.html'))
 })
-app.get('/profile' , (req , res) =>{
-    const {token} = req.cookies
-    if(!token){
-        return res.redirect('/login')
-    }
-    try{
-        const payload = jwt.verify(token , process.env.JWT_SECRET)
-    }catch(error){//توکن معتبر نیست یا تاریخ انقضا گدشته
-        return res.redirect('/login')
-    }
+app.get('/profile' , isAuthenticated , (req , res) =>{
     res.sendFile(path.join(__dirname , '../frontend/profile.html'))
 })
 
